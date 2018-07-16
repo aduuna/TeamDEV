@@ -4,7 +4,7 @@ app = Flask(__main__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return "<h1>it worked</h1>"
 
 if __name__=='__main__':
     import os
