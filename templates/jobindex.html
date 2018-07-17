@@ -1,7 +1,11 @@
+{% extends 'base.html' %}
 
+{% block content %}
+<section>
+	<br><br><br><br><br><br><br>
 {% for job in job_list %}
 
-<div class="{% if forloop.counter %= 3 %}row{% endif %}">
+<div class="{% if loop.index % 3 == 0 %}row{% endif %}">
 
 <div class="col-sm-3">
 	{% with Job_postings=job %}
@@ -13,4 +17,6 @@
 
 
 {% endfor %}
- 
+ </section>
+
+{% endblock %}
