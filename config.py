@@ -3,8 +3,10 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = 'v5d&fiouf3pwht^^2ja5r!q7ex3e)294dj)xr%668e5845^)oz'
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-
+    DB_USERNAME = 'pi'
+    DB_HOSTNAME = '197.255.121.22'
+    DB_PASSWORD = 'aduuna14'
+    DB_NAME = 'ejuma'
 
 class ProductionConfig(Config):
     DEBUG = False
