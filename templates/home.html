@@ -1,0 +1,29 @@
+<html>
+<head>
+{% if title %}
+   <title>First flask {{ title }} </title>
+{% else %}
+   <title>Flask</title>
+{% endif %}
+</head>
+	<body>
+		<div class="jumbotron">
+			<div class="container text-center">
+				<h2 class="Display 4">Yayyyyy!!!</h3>
+			</div>
+			<hr>
+			<div>
+				<ul>
+					<li>
+						<a href="/UG" class="lead">University Of Ghana</a>
+						{% for post in posts %}
+						<p> Name: {{ post.name}} </p>
+						<p> Age: {{ post.age}} </p>
+						{% endfor %}
+					</li>
+				</ul>
+			</div>
+		</div
+	</body>
+
+</html>
