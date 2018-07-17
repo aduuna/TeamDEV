@@ -5,10 +5,6 @@ from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template("index.html")
-
 @app.route('/users')
 def get_users():
     conn = ""
@@ -29,6 +25,15 @@ def get_users():
         rows = cur.fetchall()
         out = []
         for row in rows:
+            out.append({"freelancer_id": row[0], "first_name": row[1]})
+    except:
+        out = {"err": "General SQL Error"}
+        
+            
+@app.route('/')
+def index():
+    return render_template("index.html", rows=out)
+   
 
 if __name__=='__main__':
    

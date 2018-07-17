@@ -1,10 +1,5 @@
 <html>
 <head>
-{% if title %}
-   <title>First flask {{ title }} </title>
-{% else %}
-   <title>Flask</title>
-{% endif %}
 </head>
 	<body>
 		<div class="jumbotron">
@@ -16,9 +11,9 @@
 				<ul>
 					<li>
 						<a href="/UG" class="lead">University Of Ghana</a>
-						{% for post in posts %}
-						<p> Name: {{ post.name}} </p>
-						<p> Age: {{ post.age}} </p>
+						{% for row in out%}
+						<p> Id: {{ row.freelancer_id}} </p>
+						<p> Name: {{ row.first_name}} </p>
 						{% endfor %}
 					</li>
 				</ul>
