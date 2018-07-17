@@ -1,7 +1,7 @@
 from flask import Flask
 import urllib.parse as urlparse
 import os
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -21,7 +21,7 @@ def get_users():
         out = {"err": "Unable to connect to the database"}
     try:
         cur = conn.cursor()
-        cur.execute("""SELECT * FROM freelaner""")
+        cur.execute("""SELECT * FROM freelancer""")
         rows = cur.fetchall()
         out = []
         for row in rows:
