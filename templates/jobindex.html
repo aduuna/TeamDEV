@@ -1,0 +1,16 @@
+
+{% for job in job_list %}
+
+<div class="{% if forloop.counter %= 3 %}row{% endif %}">
+
+<div class="col-sm-3">
+	{% with Job_postings=job %}
+	{% include 'job_card.html' %}
+	{% endwith %}
+</div>
+
+</div>
+
+
+{% endfor %}
+ 
