@@ -3,9 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 
 #forms imports
-from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField
-from wtforms.validators import DataRequired,Length, EqualTo
+from forms import SignUpForm, LoginForm, CommentForm
 from passlib.hash import sha256_crypt
 
 #configurations
@@ -15,33 +13,9 @@ app.config['SECRET_KEY'] = "random string"
 
 db = SQLAlchemy(app)
 
-class User(db.Model):
-    id = db.Column('student_id', db.Integer, primary_key = True)
-    firstname = db.Column(db.String(50))
-    lastname = db.Column(db.String(50))
-    status = db.Column(db.String(200))
-    email = db.Column(db.String(200)) #to be changed to the propper fields
-    password = db.Column(db.String(32)) #to be changed to the propper fields
+from models import Freelancer, Employer, Job_allocation, Job_postings, Comments
 
-    def __init__(self, name, city, addr,pin):
-        self.firstname = firstaname
-        self.lastname = lastname
-        self.status = status
-        self.email = email
-        self.password = password
-        
-#Forms
-class LoginForm(FlaskForm):
-    username = StringField('username', validators=[DataRequired(), Length(min=1, max=50)])
-    password = PasswordField('password', validators=[DataRequired()])
-    
-class SignUpForm(FlaskForm):
-    firstname = StringField('first name', validators=[DataRequired(), Length(min=1, max=50)])
-    lastname = StringField('last name', validators=[DataRequired(), Length(min=1, max=50)])
-    username = StringField('user name', validators=[DataRequired(), Length(min=1, max=50)])
-    email = StringField('email', validators=[DataRequired(), Length(min=6, max=100)])
-    password = PasswordField('password', validators=[DataRequired(), EqualTo('confirm', message='passwords should match')])
-    confirm = PasswordField('confirm password')
+
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
@@ -55,16 +29,52 @@ def login():
 def signup():
     form = SignUpForm()
     if request.method == 'POST' and form.validated():
-        user = User(request.form['firstname'],
+        user = Freelancer(request.form['firstname'],
             request.form['lastname'],
             request.form['status'],
             request.form['email'],
             request.form['password'])
         db.session.add(user)
         db.session.commit()
-        flash('Record was successfully added')
-        return redirect(url_for('show_all'))
+        flash('successfully logged in')
+        return redirect(url_for('jobs_index'))
     return render_template('signup.html', form=form)
+
+
+@app.route('/jobs')
+def jobs_index():
+	job_list = [
+		{
+			'amount':500,
+			'title':'Tonaton manager',
+			'description':'become the first and ever manager of tonaton Ghana limited',
+			'duration':'8 weeks',
+			'no_of_people':2
+		},
+		{
+			'amount':500,
+			'title':'Adowa dancer',
+			'description':'Dance for the fan of it',
+			'duration':'40 years',
+			'no_of_people':1000000
+		},
+		{
+			'amount':500,
+			'title':'Adowa dancer',
+			'description':'Dance for the fan of it',
+			'duration':'40 years',
+			'no_of_people':1000000
+		},
+		{
+			'amount':500,
+			'title':'Adowa dancer',
+			'description':'Dance for the fan of it',
+			'duration':'40 years',
+			'no_of_people':1000000
+		},
+	
+	]
+	return render_template('jobindex.html', job_list=job_list)
 
 
 @app.route('/')
