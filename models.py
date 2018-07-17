@@ -1,7 +1,8 @@
-from app import db
+import app
+db = app.db
 
 class Freelancer(db.Model):
-    id = db.Column('freelancer_id', db.Integer, primary_key = True)
+    id = db.Column('id', db.Integer, primary_key = True)
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(50))
     contact = db.Column(db.String(50))
@@ -24,7 +25,7 @@ class Freelancer(db.Model):
 
 
 class Employer(db.Model):
-    id = db.Column('employer_id', db.Integer, primary_key = True)
+    id = db.Column('id', db.Integer, primary_key = True)
     companyname = db.Column(db.String(100))
     companydescription = db.Column(db.String(50))
     email = db.Column(db.String(200)) #to be changed to the propper fields
@@ -38,7 +39,7 @@ class Employer(db.Model):
 
 
 class Job_postings(db.Model):
-    id = db.Column('job_id', db.Integer, primary_key = True)
+    id = db.Column('id', db.Integer, primary_key = True)
     amount = db.Column(db.Float)
     title = db.Column(db.String(100))
     description = db.Column(db.String(50))
@@ -60,7 +61,7 @@ class Job_postings(db.Model):
 
 
 class Comments(db.Model):
-    id = db.Column('comment_id', db.Integer, primary_key = True)
+    id = db.Column('id', db.Integer, primary_key = True)
     employer_id = db.Column(db.Integer, db.ForeignKey('employer.id'),
         nullable=False)
     employ = db.relationship('Employer',
