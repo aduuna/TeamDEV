@@ -7,7 +7,7 @@
 
 <div class="{% if loop.index % 3 == 0 %}row{% endif %}">
 
-<div class="col-sm-3">
+<div class="col-xs-12 col-sm-6 col-md-4">
 	{% with Job_postings=job %}
 	{% include 'job_card.html' %}
 	{% endwith %}
