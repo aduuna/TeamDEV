@@ -8,12 +8,13 @@ from passlib.hash import sha256_crypt
 
 #configurations
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI','sqlite:///students.sqlite3')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI','sqlite:///app.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "random string"
 
 db = SQLAlchemy(app)
 
-from models import Freelancer, Employer, Job_allocation, Job_postings, Comments
+import models
 
 
 
@@ -81,8 +82,29 @@ def jobs_index():
 def show_all():
     return render_template('index.html')
 
+"""
+@app.route('/home')
+def home():
+    out = get_users()
+    return "Home page"
+	
+                    
+@app.route('/signup')
+def signup():
+    return "Sign up page"
+
+                    
+@app.route('/login')
+def login():
+    return "Login page"	
+
+                    
+@app.route('/about')
+def about():
+    return "About page"
+"""	
+
 
 
 if __name__ == '__main__':
-    db.create_all()
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT',5000)))
