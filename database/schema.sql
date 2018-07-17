@@ -1,26 +1,28 @@
-DROP TABLE freelancer, employer, job_postings, comment, job_allocation;
+DROP TABLE freelancer CASCADE;
+DROP TABLE employer CASCADE;
+DROP TABLE job_postings CASCADE;
+DROP TABLE comment CASCADE;
+DROP TABLE job_allocation CASCADE;
 
-CREATE TABLE IF NOT EXISTS freelancer (
+CREATE TABLE freelancer (
   freelancer_id SERIAL PRIMARY KEY,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   dateofbirth DATE NOT NULL,
   status VARCHAR(255) NOT NULL,
   skills VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,	
   email VARCHAR(255) NOT NULL,
   contact VARCHAR(255) NOT NULL);
 
-
- CREATE TABLE IF NOT EXISTS employer (
+CREATE TABLE employer (
    employer_id SERIAL PRIMARY KEY,
    company_name VARCHAR(255) NOT NULL,
    company_description VARCHAR(255) NOT NULL,
    email VARCHAR(255) NOT NULL,
    contact VARCHAR(255) NOT NULL);
 
-
-CREATE TABLE IF NOT EXISTS job_postings (
+CREATE TABLE job_postings (
   job_id SERIAL PRIMARY KEY,
   employer_id INTEGER NOT NULL,
   title VARCHAR(255) NOT NULL,
@@ -33,7 +35,7 @@ CREATE TABLE IF NOT EXISTS job_postings (
   amount REAL NOT NULL);
 
 
-CREATE TABLE IF NOT EXISTS comment (
+CREATE TABLE comment (
   comment_id SERIAL PRIMARY KEY,
   employer_id INTEGER NOT NULL,
   freelancer_id INTEGER NOT NULL,
@@ -46,11 +48,9 @@ CREATE TABLE IF NOT EXISTS comment (
         comment VARCHAR(255) NOT NULL,
         dateofcomment DATE NOT NULL,
         timeofcomment TIME NOT NULL,
-        rating INTEGER NOT NULL
-                
-        );
+        rating INTEGER NOT NULL);
 
-CREATE TABLE IF NOT EXISTS job_allocation (
+CREATE TABLE job_allocation (
       freelancer_id INTEGER NOT NULL,
       job_id INTEGER NOT NULL,
       FOREIGN KEY (freelancer_id)
@@ -58,17 +58,7 @@ CREATE TABLE IF NOT EXISTS job_allocation (
       ON UPDATE CASCADE ON DELETE CASCADE,
       FOREIGN KEY (job_id)
       REFERENCES job_postings (job_id)
-      ON UPDATE CASCADE ON DELETE CASCADE
-               
-  );
+      ON UPDATE CASCADE ON DELETE CASCADE);
 
 INSERT INTO freelancer(first_name, last_name, dateofbirth, status, skills, password, email, contact) 
-VALUES ('Doreen', 'Dodoo', '1996-05-03', 'unemployed', 'none', '123456', '0244879058' );
-INSERT INTO employer(company_name, company_description, email, contact)
-VALUES ('Tullow', 'oil company', 'tullow@gmail.com', '0578532331')
-INSERT INTO job_postings(employer_id, title, description, duration, no_of_people)
-VALUES (2, 'construction work', '2 weeks', 20)
-INSERT INTO comment(employer_id, freelancer_id, comment, dateofcomment, timeofcomment, rating)
-VALUES (5, 1, 'Very hardworking', '1971-07-13', '01:00:00', 5)
-INSERT INTO job_allocation(freelancer_id, job_id)
-VALUES (2, 5)
+VALUES ('Doreen', 'Dodoo', '1996-05-03', 'unemployed', 'none', '123456', 'dummy@dummyemail.com', '0244879058' );
