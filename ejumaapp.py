@@ -6,7 +6,6 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.route('/users')
 def get_users():
     conn = ""
     out = []
@@ -29,10 +28,11 @@ def get_users():
             out.append({"freelancer_id": row[0], "first_name": row[1]})
     except:
         out = {"err": "General SQL Error"}
-        
-            
+    return out
+                    
 @app.route('/')
 def index():
+	out = get_users()
     return render_template("index.html", rows=out)
    
 
