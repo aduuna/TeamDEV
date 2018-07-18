@@ -4,4 +4,5 @@ __pycache__/
 #ignore binary
 *.py[cod]
 
-
+#DATABASE
+*.sqlite3

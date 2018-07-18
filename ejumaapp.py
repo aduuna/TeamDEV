@@ -4,7 +4,12 @@ import psycopg2
 import os
 from flask import Flask, render_template
 
+
 app = Flask(__name__)
+app.config.from_object(os.environ['APP_SETTINGS'])
+db = SQLAlchemy(app)
+
+from models import Job
 
 def get_users():
     conn = ""
@@ -37,6 +42,6 @@ def index():
    
 
 if __name__=='__main__':
-   
+    import os
     app.run(host='0.0.0.0', debug=True, port=int(os.environ.get('PORT',8000)))
-    
+

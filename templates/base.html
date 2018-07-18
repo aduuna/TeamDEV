@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>Ejuma</title>
+        <!-- Mobile Specific Meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{{ url_for( 'static', filename= 'images/favicon.png')}}" rel="shortcut icon" />
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <!--link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css" /-->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+	<!--font awesome icons-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+        <!-- Animate -->
+        <link rel="stylesheet" href="/static/css/animate.css">
+        <!-- Bootsnav -->
+        <link rel="stylesheet" href="/static/css/bootsnav.css">
+        <!-- Color style -->
+        <link rel="stylesheet" href="/static/css/color.css">
+
+        <!-- Custom stylesheet -->
+        <link rel="stylesheet" href="/static/css/custom.css" />
+        <!--[if lt IE 9]>
+                <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+		
+		<!-- Responsive CSS -->
+		<link href="/static/css/animate.css" rel="stylesheet">
+		<link href="/static/css/bootsnav.css" rel="stylesheet">
+		<link href="/static/css/color.css" rel="stylesheet">
+		<link href="/static/css/custom.css" rel="stylesheet">
+    </head>
+
+    <body data-spy="scroll" data-target="#navbar-menu" data-offset="100">
+
+        <!-- Header -->
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-default navbar-fixed white bootsnav on no-full no-background">
+
+            <div class="container">            
+                <!-- Start Atribute Navigation -->
+                <div class="attr-nav">
+                    <!--ul>
+                        <li class="side-menu"><a href="#"><p>More</p> <i class="fa fa-bars"></i></a></li>
+                    </ul-->
+                </div>
+                <!-- End Atribute Navigation -->
+
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button data-target="#navbar-menu" data-toggle="collapse" class="navbar-toggle" type="button">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a href="#brand" class="navbar-brand">
+                        <img alt="" class="logo logo-display" src="{{ url_for( 'static', filename= 'images/bgstudio.png')}}">
+                        <img alt="" class="logo logo-scrolled" src="{{ url_for( 'static', filename= 'images/logo.png')}}">
+                    </a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse text-uppercase" id="navbar-menu" >
+                    <ul data-out="fadeOutUp" data-in="fadeInDown" class="nav navbar-nav">
+                        <li role="presentation"><a href="/home">Home</a></li>
+                        <li role="presentation"><a href="/about">About</a></li>
+						<li role="presentation"><a href="#">Jobs</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						  <li class="nav-item">
+							<a class="nav-link" href="/signup"><i class="fa fa-user-plus"> </i> Sign Up</a>
+						  </li>
+						  <li class="nav-item">
+							<a class="nav-link" href="/login"><i class="fa fa-sign-in"> </i> Login</a>
+						  </li>
+						</li>
+					</ul>
+					
+                </div><!-- /.navbar-collapse -->
+            </div> 
+        </nav>              			
+
+			{% block content %}{% endblock %}
+
+        <!-- JavaScript -->
+        <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>		
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Bootsnav js -->
+        <script src="/static/js/bootsnav.js"></script>
+
+		<script src="{{ url_for( 'static', filename= 'js/bootsnav.js')}}"></script>
+
+        <!--main js-->
+        <script type="text/javascript" src="/static/js/main.js"></script>
+		
+		<script type="{{ url_for( 'static', filename= 'js/main.js')}}"></script>
+
+    </body>	
+</html>	
