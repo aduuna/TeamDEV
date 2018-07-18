@@ -32,7 +32,7 @@ def get_users():
                     
 @app.route('/')
 def index():
-	out = get_users()
+    out = get_users()
     return render_template("index.html", rows=out)
    
 
