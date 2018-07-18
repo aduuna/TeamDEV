@@ -10,7 +10,7 @@ class Freelancer(db.Model):
     skills = db.Column(db.String(500))
     dob = db.Column(db.Date)
     status = db.Column(db.String(200))
-    email = db.Column(db.String(200)) #to be changed to the propper fields
+    email = db.Column(db.String(200),unique=True) #to be changed to the propper fields
     password = db.Column(db.String(32)) #to be changed to the propper fields
 
     def __init__(self, firstname, lastname, contact, skills, dob, status, email, password):
