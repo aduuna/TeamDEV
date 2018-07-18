@@ -1,5 +1,6 @@
 import app
 db = app.db
+from datetime import datetime
 
 class Freelancer(db.Model):
     id = db.Column('id', db.Integer, primary_key = True)
@@ -13,11 +14,11 @@ class Freelancer(db.Model):
     password = db.Column(db.String(32)) #to be changed to the propper fields
 
     def __init__(self, firstname, lastname, contact, skills, dob, status, email, password):
-        self.firstname = firstaname
+        self.firstname = firstname
         self.lastname = lastname
         self.contact = contact
         self.skills = skills
-        self.dob = dob
+        self.dob = datetime.strptime(dob,'%d-%m-%Y').date()
         self.status = status
         self.email = email
         self.password = password
