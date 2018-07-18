@@ -73,6 +73,23 @@ def signup():
     return render_template('signup.html', form=form)
 
 
+@app.route('/profile/<id>', methods = ['GET', 'POST'])
+@login_required
+def view_profile(id):
+    user = db.session.query(models.Freelancer).filter_by(id=int(id)).first()
+    render_template('profile.html', user=user.as_dict)
+
+
+@app.route('/profile/<id>/edit', methods = ['GET', 'POST'])
+@login_required
+def edit_profile(id):
+    if id != session.user.id:
+	    flash('Access Denied! You cannot Edit this profile', 'danger')
+	    return redirect(url_for('view_profile', id=id))
+    user = db.session.query(models.Freelancer).filter_by(id=int(id)).first()
+    render_template('edit_profile.html', user=user.as_dict())
+    ############################ to be continued
+
 @app.route('/jobs')
 def jobs_index():
 	job_list = user = db.session.query(models.Job_postings).all()
