@@ -1,1 +1,1 @@
-web: gunicorn ejumaapp:app
+web: python ejumaapp.py
