@@ -62,9 +62,25 @@ def job_detail(job_id):
 	job = user = db.session.query(models.Job_postings).filter_by(id=job_id).first()
 	return render_template('job_detail.html', job=job)
 
-@app.route('/jobs/add')
-def add_job():
-	return 'adding job post'
+@app.route('/jobs/new', methods = ['GET', 'POST'])
+def new_job():
+    form = JobPostForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        user = models.Job_postings(request.form['firstname'],#employer_id
+            request.form['lastname'],
+            request.form['contact'],
+            request.form['skills'],
+            request.form['dob'],
+            request.form['status'],
+            request.form['email'],
+            request.form['password'],
+            )
+        db.session.add(user)
+        db.session.commit()
+        flash('successfully logged in')
+        return redirect(url_for('jobs_index'))
+    return render_template('signup.html', form=form)
+
 
 @app.route('/about')
 def about():
