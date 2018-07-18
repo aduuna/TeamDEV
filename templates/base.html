@@ -3,7 +3,9 @@
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
+        {% block head %}
         <title>Ejuma</title>
+        {% endblock %}
         <!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="{{ url_for( 'static', filename= 'images/favicon.png')}}" rel="shortcut icon" />
