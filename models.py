@@ -22,6 +22,9 @@ class Freelancer(db.Model):
         self.status = status
         self.email = email
         self.password = password
+    
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 
@@ -48,8 +51,6 @@ class Job_postings(db.Model):
     no_of_people = db.Column(db.Integer) #to be changed to the propper fields
     employer_id = db.Column(db.Integer, db.ForeignKey('employer.id'),
         nullable=False)
-    emp = db.relationship('Employer',
-        backref=db.backref('job_postings', lazy=True))
 
 
     def __init__(self, employer_id, amount, title, description, duration, no_of_people):

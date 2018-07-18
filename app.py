@@ -1,6 +1,7 @@
-from flask import Flask, request, flash, url_for, redirect, render_template
+from flask import Flask, request, flash, url_for, redirect, render_template, session
 from flask_sqlalchemy import SQLAlchemy
 import os
+from functools import wraps
 
 #forms imports
 from forms import SignUpForm, LoginForm, CommentForm, JobPostForm
@@ -17,19 +18,39 @@ db = SQLAlchemy(app)
 import models
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            flash('loggin required', 'danger')
+            return redirect(url_for('login', next=request.url))
+        else:
+            return f(*args, **kwargs)
+    return decorated_function
+
+
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = db.session.query(models.Freelancer).filter_by(email=request.form['email']).first()
-        if user.password == request.form['password']:
+        if sha256_crypt.verify(request.form['password'], user.password):
             flash('logged in as {}'.format(user.firstname), 'success')
+            session['logged_in'] = True
+            session['user'] = user.as_dict()
             return redirect(url_for('jobs_index'))
         else:
     	    flash('Failed to login', 'danger')
         
     return render_template('login.html', form=form)
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have logged out', 'success')
+    return redirect(url_for('login'))
 
 
 @app.route('/signup', methods = ['GET', 'POST'])
@@ -43,12 +64,12 @@ def signup():
             request.form['dob'],
             request.form['status'],
             request.form['email'],
-            request.form['password'],
+            sha256_crypt.encrypt(request.form['password']),
             )
         db.session.add(user)
         db.session.commit()
         flash('successfully registered', 'success')
-        return redirect(url_for('jobs_index'))
+        return redirect(url_for('login'))
     return render_template('signup.html', form=form)
 
 
@@ -63,11 +84,12 @@ def job_detail(job_id):
 	return render_template('job_detail.html', Job_postings=job)
 
 @app.route('/jobs/new', methods = ['GET', 'POST'])
+@login_required
 def new_job():
     form = JobPostForm()
     if request.method == 'POST' and form.validate_on_submit():
         job = models.Job_postings(
-            2,#employer_id
+            session.user.id,#employer_id
             request.form['amount'],
             request.form['title'],
             request.form['description'],
