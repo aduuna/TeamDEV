@@ -26,7 +26,7 @@ class JobPostForm(FlaskForm):
     description = TextAreaField('Detailed Description', [Length(min=1, max=1000)])
     duration = StringField('Duration (eg. 2 days)', validators=[DataRequired(), Length(min=1, max=50)])
     amount = StringField('How much are you paying for this Job?', validators=[DataRequired(), Length(min=1, max=50)])
-    no_of_people = IntegerField('How many people for this Job?', validators=[DataRequired(), Length(min=1, max=4)])
+    no_of_people = IntegerField('How many people for this Job?', validators=[DataRequired()])
 
 class CommentForm(FlaskForm):
 	text = TextAreaField('comment', [Length(min=1, max=50)])
