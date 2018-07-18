@@ -24,6 +24,10 @@ def get_users():
         cur.execute("""SELECT * FROM freelaner""")
         rows = cur.fetchall()
         out = []
+        for row in rows:
+            out.append({"freelancer_id": row[0], "first_name": row[1]})
+    except:
+        out = {"err": "General SQL Error"}
         
             
 @app.route('/')
