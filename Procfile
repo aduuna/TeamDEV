@@ -1,1 +1,1 @@
-web: python ejumaapp.py
+web: python app.py
