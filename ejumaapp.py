@@ -33,7 +33,7 @@ def get_users():
 @app.route('/')
 def index():
     out = get_users()
-    return render_template("index.html", rows=out)
+    return render_template("home.html", rows=out)
    
 
 if __name__=='__main__':
