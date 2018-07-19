@@ -12,8 +12,8 @@
 	<br><br><br><br><br>
 <form method="POST" action="/">
     {{ form.csrf_token }}
-    {{ form.username.label }} {{ form.username(size=20) }}<br>
-    {{ form.password.label }} {{ form.password }}
+    {{ form.email.label }} {{ form.email(size=20) }}<br>
+    {{ form.password.label }} {{ form.password }}<br>
     <input type="submit" value="Login">
 </form>
 </div>
