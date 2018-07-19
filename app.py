@@ -29,12 +29,17 @@ def login():
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():
     form = SignUpForm()
-    if request.method == 'POST' and form.validated():
-        user = Freelancer(request.form['firstname'],
+    if request.method == 'POST' and form.validate_on_submit():
+        print('validated')
+        user = models.Freelancer(request.form['firstname'],
             request.form['lastname'],
+            request.form['contact'],
+            request.form['skills'],
+            request.form['dob'],
             request.form['status'],
             request.form['email'],
-            request.form['password'])
+            request.form['password'],
+            )
         db.session.add(user)
         db.session.commit()
         flash('successfully logged in')

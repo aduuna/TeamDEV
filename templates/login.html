@@ -10,11 +10,11 @@
 
 <div class="container form-group">
 	<br><br><br><br><br>
-<form method="POST" action="/">
+<form method="POST" action="">
     {{ form.csrf_token }}
     {{ form.email.label }} {{ form.email(size=20) }}<br>
     {{ form.password.label }} {{ form.password }}<br>
-    <input type="submit" value="Login">
+    <input type="submit" value="Login" class="btn btn-success">
 </form>
 </div>
 
