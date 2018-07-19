@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 
+
+
+{% block head %}
+<title>ejuma | Jobs</title>
+{% endblock %}
+
+
+{% block navbar_type %}bg-dark{% endblock %}
+
+
+
 {% block content %}
 <section>
-	<br><br><br><br><br><br><br>
+	
 {% for job in job_list %}
 
 <div class="{% if loop.index % 3 == 0 %}row{% endif %}">

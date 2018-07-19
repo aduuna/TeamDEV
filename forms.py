@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, DateField, SelectField
+from wtforms import StringField, TextAreaField, PasswordField, DateField, SelectField, IntegerField
 from wtforms.validators import DataRequired,Length, EqualTo
 
 #Forms
@@ -21,7 +21,12 @@ class SignUpForm(FlaskForm):
         choices=[('yes', 'On a Job'), ('no', 'Available'), ('none', "I'd rather not say")]
     )
 
-
+class JobPostForm(FlaskForm):
+    title = StringField('Job title', validators=[DataRequired(), Length(min=1, max=50)])
+    description = TextAreaField('Detailed Description', [Length(min=1, max=1000)])
+    duration = StringField('Duration (eg. 2 days)', validators=[DataRequired(), Length(min=1, max=50)])
+    amount = StringField('How much are you paying for this Job?', validators=[DataRequired(), Length(min=1, max=50)])
+    no_of_people = IntegerField('How many people for this Job?', validators=[DataRequired()])
 
 class CommentForm(FlaskForm):
 	text = TextAreaField('comment', [Length(min=1, max=50)])

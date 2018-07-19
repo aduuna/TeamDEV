@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 
 #forms imports
-from forms import SignUpForm, LoginForm, CommentForm
+from forms import SignUpForm, LoginForm, CommentForm, JobPostForm
 from passlib.hash import sha256_crypt
 
 #configurations
@@ -24,10 +24,10 @@ def login():
     if form.validate_on_submit():
         user = db.session.query(models.Freelancer).filter_by(email=request.form['email']).first()
         if user.password == request.form['password']:
-            flash('logged in as {}'.format(user.firstname))
+            flash('logged in as {}'.format(user.firstname), 'success')
             return redirect(url_for('jobs_index'))
         else:
-    	    flash('Failed to login')
+    	    flash('Failed to login', 'danger')
         
     return render_template('login.html', form=form)
 
@@ -47,7 +47,7 @@ def signup():
             )
         db.session.add(user)
         db.session.commit()
-        flash('successfully logged in')
+        flash('successfully registered', 'success')
         return redirect(url_for('jobs_index'))
     return render_template('signup.html', form=form)
 
@@ -59,12 +59,27 @@ def jobs_index():
 
 @app.route('/jobs/<job_id>')
 def job_detail(job_id):
-	job = user = db.session.query(models.Job_postings).filter_by(id=job_id).first()
-	return render_template('job_detail.html', job=job)
+	job = user = db.session.query(models.Job_postings).filter_by(id=int(job_id)).first()
+	return render_template('job_detail.html', Job_postings=job)
 
-@app.route('/jobs/add')
-def add_job():
-	return 'adding job post'
+@app.route('/jobs/new', methods = ['GET', 'POST'])
+def new_job():
+    form = JobPostForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        job = models.Job_postings(
+            2,#employer_id
+            request.form['amount'],
+            request.form['title'],
+            request.form['description'],
+            request.form['duration'],
+            request.form['no_of_people'],
+            )
+        db.session.add(job)
+        db.session.commit()
+        flash('successfully added new job', 'success')
+        return redirect(url_for('jobs_index'))
+    return render_template('new_job.html', form=form)
+
 
 @app.route('/about')
 def about():

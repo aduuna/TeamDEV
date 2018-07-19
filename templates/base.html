@@ -45,7 +45,7 @@
         <!-- Header -->
 
         <!-- Navbar -->
-        <nav class="navbar navbar-default navbar-fixed white bootsnav on no-full no-background">
+        <nav class="navbar navbar-default navbar-fixed white on no-full {% block navbar_type %}bootsnav no-background{% endblock %}">
 
             <div class="container">            
                 <!-- Start Atribute Navigation -->
@@ -62,8 +62,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <a href="/" class="navbar-brand">
-                        <img alt="" class="logo logo-display" src="{{ url_for( 'static', filename= 'images/ejma.png')}}" width=60 height=70>
-                        <img alt="" class="logo logo-scrolled" src="{{ url_for( 'static', filename= 'images/ejma.png')}}" width=60 height=70>
+                        <img alt="" class="logo logo-display logo-scrolled" src="{{ url_for( 'static', filename= 'images/ejma.PNG')}}" width=40 height=70>
                     </a>
                 </div>
                 <!-- End Header Navigation -->
@@ -73,7 +72,7 @@
                     <ul data-out="fadeOutUp" data-in="fadeInDown" class="nav navbar-nav">
                         <li role="presentation"><a href="/home">Home</a></li>
                         <li role="presentation"><a href="/about">About</a></li>
-						<li role="presentation"><a href="#">Jobs</a></li>
+						<li role="presentation"><a href="/jobs">Jobs</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						  <li class="nav-item">
@@ -88,7 +87,9 @@
                 </div><!-- /.navbar-collapse -->
             </div> 
         </nav>              			
-
+		
+		
+		{% include '_messages.html' %}
 			{% block content %}{% endblock %}
 
         <!-- JavaScript -->
