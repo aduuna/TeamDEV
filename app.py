@@ -22,7 +22,13 @@ import models
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect('/')
+        user = db.session.query(models.Freelancer).filter_by(email=request.form['email']).first()
+        if user.password == request.form['password']:
+            flash('logged in as {}'.format(user.firstname))
+            return redirect(url_for('jobs_index'))
+        else:
+    	    flash('Failed to login')
+        
     return render_template('login.html', form=form)
 
 
@@ -30,7 +36,6 @@ def login():
 def signup():
     form = SignUpForm()
     if request.method == 'POST' and form.validate_on_submit():
-        print('validated')
         user = models.Freelancer(request.form['firstname'],
             request.form['lastname'],
             request.form['contact'],
@@ -49,65 +54,28 @@ def signup():
 
 @app.route('/jobs')
 def jobs_index():
-	job_list = [
-		{
-			'amount':500,
-			'title':'Tonaton manager',
-			'description':'become the first and ever manager of tonaton Ghana limited',
-			'duration':'8 weeks',
-			'no_of_people':2
-		},
-		{
-			'amount':500,
-			'title':'Adowa dancer',
-			'description':'Dance for the fan of it',
-			'duration':'40 years',
-			'no_of_people':1000000
-		},
-		{
-			'amount':500,
-			'title':'Adowa dancer',
-			'description':'Dance for the fan of it',
-			'duration':'40 years',
-			'no_of_people':1000000
-		},
-		{
-			'amount':500,
-			'title':'Adowa dancer',
-			'description':'Dance for the fan of it',
-			'duration':'40 years',
-			'no_of_people':1000000
-		},
-	
-	]
+	job_list = user = db.session.query(models.Job_postings).all()
 	return render_template('jobindex.html', job_list=job_list)
+
+@app.route('/jobs/<job_id>')
+def job_detail(job_id):
+	job = user = db.session.query(models.Job_postings).filter_by(id=job_id).first()
+	return render_template('job_detail.html', job=job)
+
+@app.route('/jobs/add')
+def add_job():
+	return 'adding job post'
+
+@app.route('/about')
+def about():
+    return redirect('/home#about')
 
 
 @app.route('/')
-def show_all():
+@app.route('/home')
+def index():
     return render_template('index.html')
 
-"""
-@app.route('/home')
-def home():
-    out = get_users()
-    return "Home page"
-	
-                    
-@app.route('/signup')
-def signup():
-    return "Sign up page"
-
-                    
-@app.route('/login')
-def login():
-    return "Login page"	
-
-                    
-@app.route('/about')
-def about():
-    return "About page"
-"""	
 
 
 
