@@ -7,3 +7,6 @@ __pycache__/
 #DATABASE
 *.sqlite3
 *.db
+
+#migrations sqlite impl
+
