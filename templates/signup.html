@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>ejuma | Sign Up</title>
+<title>Ejuma | Sign Up</title>
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
 <div class="container">
 {% from "_formhelpers.html" import render_field %}
 
-<div class="content-section" style='padding-left:20%; padding-right:20%' >
+<div class="content-section well" style='padding-left:20%; padding-right:20%' >
 <form method="POST" action="">
     {{ form.csrf_token }}
     <fieldset class="form-group">
@@ -53,7 +53,7 @@
 	{{ render_field(form.confirm, class="form-control") }}
 	</div>
 	</fieldset>
-    <input type="submit" value="sign up" class="btn btn-primary">
+    <input type="submit" value="Sign up" class="btn btn-primary">
 </form>
 	<p class="border-top pt-3"><small class="text-muted">
 		Already have an account? <a class="ml-2" href="{{ url_for('login') }}">Log In</a>
