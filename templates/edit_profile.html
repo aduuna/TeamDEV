@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Ejuma | Sign Up</title>
+<title>Ejuma | Edit profile</title>
 {% endblock %}
 
 
@@ -17,7 +17,7 @@
 <form method="POST" action="">
     {{ form.csrf_token }}
     <fieldset class="form-group">
-	<legend class="border-bottom mb-4">Join Today</legend>
+	<legend class="border-bottom mb-4">Edit Profile</legend>
 	
 		<div class="row">
 			<div class="col-sm-6 form-group">
@@ -48,19 +48,12 @@
 	{{ render_field(form.status, class="form-control") }}
 	</div>
 	
-	<div class="form-group">
-	{{ render_field(form.password, class="form-control") }}
-	</div>
-	
-	<div class="form-group">
-	{{ render_field(form.confirm, class="form-control") }}
-	</div>
+
 	</fieldset>
-    <input type="submit" value="Sign up" class="btn btn-primary">
+    <input type="submit" value="Save Changes" class="btn btn-primary">
 </form>
-	<p class="border-top pt-3"><small class="text-muted">
-		Already have an account? <a class="ml-2" href="{{ url_for('login') }}">Log In</a>
-	</small></p>	
+<a class="ml-2" href="{{ url_for('view_profile', user_id=session.user.id) }}">Cancel Changes</a>	
+</div>
 </div>
 </section>
 {% endblock %}

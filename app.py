@@ -73,22 +73,39 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-@app.route('/profile/<id>', methods = ['GET', 'POST'])
+@app.route('/profile/<user_id>', methods = ['GET', 'POST'])
 @login_required
-def view_profile(id):
-    user = db.session.query(models.Freelancer).filter_by(id=int(id)).first()
-    render_template('profile.html', user=user.as_dict)
+def view_profile(user_id):
+    user = db.session.query(models.Freelancer).get(int(user_id))
+    return render_template('profile.html', user=user)
 
 
-@app.route('/profile/<id>/edit', methods = ['GET', 'POST'])
+@app.route('/profile/<user_id>/edit', methods = ['GET', 'POST'])
 @login_required
-def edit_profile(id):
-    if id != session.user.id:
+def edit_profile(user_id):
+    print(user_id,int(session['user']['id']))
+    if int(user_id) != int(session['user']['id']):
 	    flash('Access Denied! You cannot Edit this profile', 'danger')
-	    return redirect(url_for('view_profile', id=id))
-    user = db.session.query(models.Freelancer).filter_by(id=int(id)).first()
-    render_template('edit_profile.html', user=user.as_dict())
-    ############################ to be continued
+	    return redirect(url_for('view_profile', user_id=user_id))
+    user_get = db.session.query(models.Freelancer).get(int(user_id))
+    form = SignUpForm(obj=user_get)
+    if request.method == 'POST' and form.validate_on_submit():
+        user = models.Freelancer(request.form['firstname'],
+            request.form['lastname'],
+            request.form['contact'],
+            request.form['skills'],
+            request.form['dob'],
+            request.form['status'],
+            request.form['email'],
+            sha256_crypt.encrypt(request.form['password']),
+            )
+        db.session.delete(user_get)
+        db.session.commit()
+        db.session.add(user)
+        db.session.commit()
+        flash('Profile Data updated', 'success')
+        return redirect(url_for('view_profile', user_id=user_id))
+    return render_template('edit_profile.html', form=form)
 
 @app.route('/jobs')
 def jobs_index():
