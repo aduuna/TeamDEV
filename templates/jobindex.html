@@ -12,6 +12,28 @@
 
 
 {% block content %}
+<br>
+
+<div id=contact class="content-section" style='padding-left:20%; padding-right:20%'>
+	        <div class="sticky-top">
+                <div class="container">
+                    <div class="row">
+						<div class="col-md-9">
+                            <form role="form" class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="unam" placeholder="Search for a job here">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Go!</button>
+                            </form>					
+                        </div>
+                        <div class="col-md-3">
+							<input type="submit" value="Add a new job" class="btn btn-primary">
+						</div>
+                     </div>   
+                    </div>
+                </div>
+</div>
+
 <section>
 	
 {% for job in job_list %}
@@ -31,3 +53,6 @@
  </section>
 
 {% endblock %}
+		<!--div class="col-sm-6">
+		<input type="submit" value="Add a new job" class="btn btn-success">
+		</div-->
