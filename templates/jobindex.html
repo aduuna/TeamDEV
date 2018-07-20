@@ -21,17 +21,17 @@
 						<div class="col-md-9">
                             <form role="form" class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="unam" placeholder="Search for a job here">
+                                    <input type="text" name="query" class="form-control" id="unam" placeholder="Search for a job here">
                                 </div>
-                                <button type="submit" class="btn btn-primary">Go!</button>
+                                <button type="submit" class="btn btn-primary"><a href="/jobs/search">Go!</button>
                             </form>					
                         </div>
                         <div class="col-md-3">
-							<input type="submit" value="Add a new job" class="btn btn-primary">
+							<button type="submit" class="btn btn-primary"><a href="{{ url_for('new_job.html') }}">Add a new job</a></button>
 						</div>
                      </div>   
-                    </div>
                 </div>
+            </div>
 </div>
 
 <section>
